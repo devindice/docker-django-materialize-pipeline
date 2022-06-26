@@ -1,9 +1,9 @@
 version: v1.0
-name: Pipeline 2
+name: Docker Pipeline
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
+    os_image: ubuntu2004
 blocks:
   - name: Docker
     task:
@@ -23,3 +23,5 @@ blocks:
             - 'docker pull $DOCKER_USERNAME/django-materialize-starter-template:latest || true'
             - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize-starter-template:latest -t $DOCKER_USERNAME/django-materialize-starter-template:latest .'
             - 'docker push $DOCKER_USERNAME/django-materialize-starter-template:latest'
+      secrets:
+        - name: Dockerhub
