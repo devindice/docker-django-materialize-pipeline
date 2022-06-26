@@ -16,12 +16,12 @@ blocks:
             - '# Login to Dockerhub'
             - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
             - '# Create a version'
-            - 'docker pull $DOCKER_USERNAME/django-materialize-starter-template:$VERSION || true'
-            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize-starter-template:$VERSION -t $DOCKER_USERNAME/django-materialize-starter-template:$VERSION .'
-            - 'docker push $DOCKER_USERNAME/django-materialize-starter-template:$VERSION'
+            - 'docker pull $DOCKER_USERNAME/django-materialize:$VERSION || true'
+            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize:$VERSION -t $DOCKER_USERNAME/django-materialize:$VERSION .'
+            - 'docker push $DOCKER_USERNAME/django-materialize:$VERSION'
             - '# Update Latest Tag'
-            - 'docker pull $DOCKER_USERNAME/django-materialize-starter-template:latest || true'
-            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize-starter-template:latest -t $DOCKER_USERNAME/django-materialize-starter-template:latest .'
-            - 'docker push $DOCKER_USERNAME/django-materialize-starter-template:latest'
+            - 'docker pull $DOCKER_USERNAME/django-materialize:latest || true'
+            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize:latest -t $DOCKER_USERNAME/django-materialize:latest .'
+            - 'docker push $DOCKER_USERNAME/django-materialize:latest'
       secrets:
         - name: Dockerhub
