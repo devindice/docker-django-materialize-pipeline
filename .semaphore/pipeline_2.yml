@@ -1,0 +1,25 @@
+version: v1.0
+name: Pipeline 2
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Docker
+    task:
+      jobs:
+        - name: Build
+          commands:
+            - '# Define Version Numbers'
+            - DATE=$(date +%y%U)
+            - 'VERSION="1.0.${DATE}"'
+            - '# Login to Dockerhub'
+            - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+            - '# Create a version'
+            - 'docker pull $DOCKER_USERNAME/django-materialize-starter-template:$VERSION || true'
+            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize-starter-template:$VERSION -t $DOCKER_USERNAME/django-materialize-starter-template:$VERSION .'
+            - 'docker push $DOCKER_USERNAME/django-materialize-starter-template:$VERSION'
+            - '# Update Latest Tag'
+            - 'docker pull $DOCKER_USERNAME/django-materialize-starter-template:latest || true'
+            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize-starter-template:latest -t $DOCKER_USERNAME/django-materialize-starter-template:latest .'
+            - 'docker push $DOCKER_USERNAME/django-materialize-starter-template:latest'
