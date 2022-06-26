@@ -16,8 +16,9 @@ blocks:
             - '# Login to Dockerhub'
             - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
             - '# Create a version'
+            - ls -1
             - 'docker pull $DOCKER_USERNAME/django-materialize:$VERSION || true'
-            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize:$VERSION -t $DOCKER_USERNAME/django-materialize:$VERSION .'
+            - 'docker build --file ./Dockefile --cache-from=$DOCKER_USERNAME/django-materialize:$VERSION -t $DOCKER_USERNAME/django-materialize:$VERSION .'
             - 'docker push $DOCKER_USERNAME/django-materialize:$VERSION'
             - '# Update Latest Tag'
             - 'docker pull $DOCKER_USERNAME/django-materialize:latest || true'
