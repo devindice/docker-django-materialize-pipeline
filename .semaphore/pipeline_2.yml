@@ -16,9 +16,8 @@ blocks:
             - '# Login to Dockerhub'
             - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
             - '# Create a version'
-            - ls -1
             - 'docker pull $DOCKER_USERNAME/django-materialize:$VERSION || true'
-            - 'docker build --file ./Dockefile --cache-from=$DOCKER_USERNAME/django-materialize:$VERSION -t $DOCKER_USERNAME/django-materialize:$VERSION .'
+            - 'docker build --cache-from=$DOCKER_USERNAME/django-materialize:$VERSION -t $DOCKER_USERNAME/django-materialize:$VERSION .'
             - 'docker push $DOCKER_USERNAME/django-materialize:$VERSION'
             - '# Update Latest Tag'
             - 'docker pull $DOCKER_USERNAME/django-materialize:latest || true'
@@ -26,3 +25,14 @@ blocks:
             - 'docker push $DOCKER_USERNAME/django-materialize:latest'
       secrets:
         - name: Dockerhub
+      prologue:
+        commands:
+          - sem-version python 3.9
+          - checkout
+          - cache restore
+          - mkdir -p .pip_cache
+          - pip install --cache-dir .pip_cache -r requirements.txt
+          - cd app
+          - 'python manage.py makemigrations '
+          - python manage.py migrate
+          - cd ..
