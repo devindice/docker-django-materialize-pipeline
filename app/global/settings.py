@@ -14,7 +14,6 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR);
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -23,7 +22,7 @@ print(BASE_DIR);
 SECRET_KEY = os.environ.get('SECRET_KEY','nf-!%8=z@20pkj$g6+b-rootq7og7a_0!k&2e6^&8ky$n%ngi%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG',"False") == "True"
 
 ALLOWED_HOSTS = ['demo.devindice.com','app.devindice.com']
 
@@ -124,7 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-print(STATIC_ROOT);
 
 #STATICFILES_DIRS = (
 #    os.path.join(BASE_DIR, 'static'),
