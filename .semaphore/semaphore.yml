@@ -38,7 +38,7 @@ blocks:
         - name: Source Code Analysis
           commands:
             - pip install flake8
-            - flake8 app/ --config .flake8.conf
+            - flake8 app/ --config /app/flake8.conf
 promotions:
   - name: Docker Pipeline
     pipeline_file: pipeline_2.yml
