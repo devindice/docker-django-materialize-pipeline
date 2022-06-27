@@ -35,6 +35,10 @@ blocks:
           commands:
             - cd app
             - python manage.py check --deploy
+        - name: CSS Styling
+          commands:
+            - pip install flake8
+            - flake8 app/ --max-line-length=127
 promotions:
   - name: Docker Pipeline
     pipeline_file: pipeline_2.yml
