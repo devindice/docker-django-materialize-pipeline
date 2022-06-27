@@ -38,7 +38,7 @@ blocks:
         - name: CSS Styling
           commands:
             - pip install flake8
-            - flake8 app/ --max-line-length=127
+            - flake8 app/ --max-line-length=500
 promotions:
   - name: Docker Pipeline
     pipeline_file: pipeline_2.yml
