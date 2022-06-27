@@ -1,6 +1,6 @@
 def variables(request):
  return {
-     'siteTitle': 'Logo',
+     'siteTitle': 'Site Logo',
      'defaultPageName': 'Site Name',
      'footerText': 'Made by',
      'footerUrl': 'http://materializecss.com',
