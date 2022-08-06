@@ -1,0 +1,53 @@
+app/global/settings.py:143:15: E121 continuation line under-indented for hanging indent
+app/global/settings.py:151:15: E121 continuation line under-indented for hanging indent
+app/global/settings.py:159:3: E121 continuation line under-indented for hanging indent
+app/global/settings.py:22:41: E231 missing whitespace after ','
+app/global/settings.py:28:47: E231 missing whitespace after ','
+app/global/settings.py:109:47: E231 missing whitespace after ','
+app/global/settings.py:111:39: E231 missing whitespace after ','
+app/global/settings.py:127:1: E265 block comment should start with '# '
+app/global/settings.py:129:1: E265 block comment should start with '# '
+app/global/settings.py:177:55: E231 missing whitespace after ','
+app/global/settings.py:185:1: E265 block comment should start with '# '
+app/global/settings.py:186:1: E265 block comment should start with '# '
+app/global/settings.py:187:1: E265 block comment should start with '# '
+app/global/settings.py:188:1: E265 block comment should start with '# '
+app/global/settings.py:189:1: E265 block comment should start with '# '
+app/global/settings.py:190:1: E265 block comment should start with '# '
+app/global/settings.py:192:1: E265 block comment should start with '# '
+app/global/settings.py:192:1: PLC0304 Final newline missing (missing-final-newline)
+app/global/settings.py:192:20: W292 no newline at end of file
+app/global/settings.py:192:20: W292 no newline at end of file
+app/global/settings.py:192:20: W292 no newline at end of file
+app/main/admin.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/admin.py:1:1: PLW0611 Unused admin imported from django.contrib (unused-import)
+app/main/admin.py:1:1: F401 'django.contrib.admin' imported but unused
+app/main/apps.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/apps.py:4:1: PLC0115 Missing class docstring (missing-class-docstring)
+app/main/models.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/models.py:1:1: PLW0611 Unused models imported from django.db (unused-import)
+app/main/models.py:1:1: F401 'django.db.models' imported but unused
+app/main/tests.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/tests.py:1:1: PLW0611 Unused TestCase imported from django.test (unused-import)
+app/main/tests.py:1:1: F401 'django.test.TestCase' imported but unused
+app/main/urls.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/urls.py:4:1: PLC0103 Constant name "siteName" doesn't conform to UPPER_CASE naming style (invalid-name)
+app/main/urls.py:9:1: PLC0304 Final newline missing (missing-final-newline)
+app/main/urls.py:9:2: W292 no newline at end of file
+app/main/views/__init__.py:1:1: PLC0304 Final newline missing (missing-final-newline)
+app/main/views/__init__.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/views/__init__.py:1:1: F403 'from .home import *' used; unable to detect undefined names
+app/main/views/__init__.py:1:1: F401 '.home.*' imported but unused
+app/main/views/__init__.py:1:20: W292 no newline at end of file
+app/main/views/home.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/main/views/home.py:5:1: E302 expected 2 blank lines, found 1
+app/main/views/home.py:5:1: PLC0116 Missing function or method docstring (missing-function-docstring)
+app/main/views/home.py:6:1: PLC0304 Final newline missing (missing-final-newline)
+app/main/views/home.py:6:44: W292 no newline at end of file
+app/global_variables/global_variables.py:1:1: PLC0114 Missing module docstring (missing-module-docstring)
+app/global_variables/global_variables.py:1:1: PLC0116 Missing function or method docstring (missing-function-docstring)
+app/global_variables/global_variables.py:1:15: PLW0613 Unused argument 'request' (unused-argument)
+app/global_variables/global_variables.py:2:1: PLW0311 Bad indentation. Found 1 spaces, expected 4 (bad-indentation)
+app/global_variables/global_variables.py:2:2: E111 indentation is not a multiple of four
+app/global_variables/global_variables.py:8:1: PLC0304 Final newline missing (missing-final-newline)
+app/global_variables/global_variables.py:8:3: W292 no newline at end of file
