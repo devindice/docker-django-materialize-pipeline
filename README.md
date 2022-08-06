@@ -12,5 +12,8 @@ source app/venv/bin/activate
 ### Install packages with pip. Keep the reqirements file up to date as this will be used during pipeline deployment.
 pip install -r requirements.txt
 
+### Start development environment
+python3 app/manage.py runserver 0.0.0.0:$PORT
+
 ### Deactivate the Virtual Environment
 deactivate
