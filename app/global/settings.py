@@ -140,7 +140,7 @@ PIPELINE = {
     'STYLESHEETS': {
         'materialize': {
             'source_filenames': (
-              'materialize/sass/materialize.scss',
+                'materialize/sass/materialize.scss',
             ),
             'output_filename': 'materialize/sass/materialize.css',
         },
@@ -148,7 +148,7 @@ PIPELINE = {
     'JAVASCRIPT': {
         'materialize': {
             'source_filenames': (
-              'materialize/js/bin/materialize.js',
+                'materialize/js/bin/materialize.js',
             ),
             'output_filename': 'materialize/js/materialize.js',
         },
@@ -156,7 +156,7 @@ PIPELINE = {
 }
 
 PIPELINE['COMPILERS'] = (
-  'pipeline.compilers.sass.SASSCompiler',
+    'pipeline.compilers.sass.SASSCompiler',
 )
 
 LOGGING = {
