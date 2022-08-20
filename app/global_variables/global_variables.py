@@ -1,8 +1,8 @@
 def variables(request):
  return {
-     'siteTitle': 'Site Logo',
-     'defaultPageName': 'Site Name',
+     'siteTitle': 'A2A',
+     'defaultPageName': 'A2A',
      'footerText': 'Made by',
-     'footerUrl': 'http://materializecss.com',
-     'footerUrlName': 'Materialize'
+     'footerUrl': 'http://devindice.com',
+     'footerUrlName': 'Devin Dice'
  }
