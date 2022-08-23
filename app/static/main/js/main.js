@@ -1,4 +1,4 @@
-let player = "April"
+let player = "Devin"
 
 let update = {score: [
   {name: 'Kyle', score: "1", status: "Pending"},
@@ -18,17 +18,28 @@ let update = {score: [
   {id: '39', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
   {id: '754', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
   ],
+  roundCards: [
+  {id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
+  {id: '334', cardTitle: "PUBLIC SPEAKING", cardDescription: "\"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy.\" -Jerry Seinfeld"},
+  {id: '234', cardTitle: "CALLING CUSTOMER SERVICE", cardDescription: "All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day"},
+  {id: '39', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
+  {id: '754', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
+  ],
+  winner: [
+  {name: 'Kyle', id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
+  ],
   dealerCards: [
   {id: '324', cardTitle: "Mysterious!", cardDescription: "secretive<br>puzzling<br>strange"},
   ],
-  state: "play",
+  state: "pick",
   dealerDeck: 99,
   playerDeck: 95
 };
 
+let pendingCards = [{id: '32', cardTitle: "No Card(s)", cardDescription: "Waiting for other players."}];
 
 function updateStatus(id, value) {
-  document.getElementById(id).innerText = value;
+  document.getElementById(id).innerHTML = value;
 }
 
 
@@ -159,23 +170,37 @@ let judge = update.score.find(x => x.status === 'Judge').name
 playerCount(update.score);
 scoreModel()
 loadTable('gameStats', ['name', 'score', 'status'], update.score);
-gameTimer(2)
-if (update.state == "play") {
+if (update.state == "pick") {
   if (player == judge){
-    loadCards('playerView', "red darken-2", false, false, update.playerCards);
+    loadCards('playerView', "red darken-2", false, false, pendingCards);
     loadCards('dealerView', "teal", true, judge, update.dealerCards);
+    gameTimer(2)
+  } else {
+    loadCards('playerView', "red darken-2", false, false, update.playerCards);
+    loadCards('dealerView', "teal", false, judge, pendingCards);
+  }
+} else if (update.state == "play") {
+    if (player == judge){
+    loadCards('playerView', "red darken-2", false, false, pendingCards);
+    loadCards('dealerView', "teal", false, judge, update.dealerCards);
   } else {
     loadCards('playerView', "red darken-2", true, false, update.playerCards);
     loadCards('dealerView', "teal", false, judge, update.dealerCards);
+    gameTimer(2)
   }
 } else if (update.state == "judge") {
     if (player == judge){
-    loadCards('playerView', "red darken-2", false, false, update.playerCards);
-    loadCards('dealerView', "teal", true, judge, update.dealerCards);
+    loadCards('playerView', "red darken-2", true, false, update.roundCards);
+    loadCards('dealerView', "teal", false, judge, update.dealerCards);
+    gameTimer(2)
   } else {
-    loadCards('playerView', "red darken-2", true, false, update.playerCards);
+    loadCards('playerView', "red darken-2", false, false, update.roundCards);
     loadCards('dealerView', "teal", false, judge, update.dealerCards);
   }
+} else if (update.state == "final") {
+  loadCards('playerView', "red darken-2", false, false, update.winner);
+  loadCards('dealerView', "teal", false, judge, update.dealerCards);
+  updateStatus("message", `<h4>Winner: ${update.winner[0].name}!</h4>`)
 }
 updateStatus("dealerDeck", `Dealer Deck: ${update.dealerDeck}%`)
 updateStatus("playerDeck", `Player Deck: ${update.playerDeck}%`)
