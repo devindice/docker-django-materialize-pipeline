@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/workspace/Home/Docker/docker-django-materialize-pipeline/app/virtualEnv"
+VIRTUAL_ENV="/workspace/Home/apps/card-game/app/virtualEnv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

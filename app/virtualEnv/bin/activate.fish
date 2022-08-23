@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/workspace/Home/Docker/docker-django-materialize-pipeline/app/virtualEnv"
+set -gx VIRTUAL_ENV "/workspace/Home/apps/card-game/app/virtualEnv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

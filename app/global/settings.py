@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'pipeline',
     'main',
     'global_variables',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'global.wsgi.application'
+ASGI_APPLICATION = 'global.asgi.application'
 
 
 # Database
