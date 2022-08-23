@@ -7,8 +7,45 @@
  */
 
 .icon-block {
-  padding: 0 15px;
+    padding: 0 15px;
 }
 .icon-block .material-icons {
 	font-size: inherit;
+}
+
+.game-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.rotate {
+    /*text-transform: uppercase;*/
+    letter-spacing: 3px;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -20px;
+    margin-top: 180px;
+    
+    transform: rotate(-90deg);
+    
+    
+    /* Legacy vendor prefixes that you probably don't need... */
+    
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
 }

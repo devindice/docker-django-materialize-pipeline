@@ -8,7 +8,7 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
       <div class="modal-content">
-        <table class="centered responsive-table">
+        <table id="gameStats" class="centered responsive-table">
           <thead>
             <tr>
                 <th>Name</th>
@@ -19,64 +19,7 @@
       
           <tbody>
             <tr>
-              <td>Player1</td>
-              <td>0</td>
-              <td>Pending</td>
-            </tr>
-            <tr>
-              <td>Player2</td>
-              <td>2</td>
-              <td>Judge</td>
-            </tr>
-            <tr>
-              <td>Player3</td>
-              <td>0</td>
-              <td>Submitted</td>
-            </tr>
-            <tr>
-              <td>Player4</td>
-              <td>3</td>
-              <td>Submitted</td>
-            </tr>
-            <tr>
-              <td>Player5</td>
-              <td>2</td>
-              <td>Pending</td>
-            </tr>
-            <tr>
-              <td>Player6</td>
-              <td>0</td>
-              <td>Submitted</td>
-            </tr>
-            <tr>
-              <td>Player7</td>
-              <td>6</td>
-              <td>Pending</td>
-            </tr>
-            <tr>
-              <td>Player8</td>
-              <td>2</td>
-              <td>Pending</td>
-            </tr>
-            <tr>
-              <td>Player9</td>
-              <td>0</td>
-              <td>Pending</td>
-            </tr>
-            <tr>
-              <td>Player10</td>
-              <td>1</td>
-              <td>Submitted</td>
-            </tr>
-            <tr>
-              <td>Player11</td>
-              <td>0</td>
-              <td>Pending</td>
-            </tr>
-            <tr>
-              <td>Player12</td>
-              <td>3</td>
-              <td>Not Available</td>
+              <td colspan="3" style="text-align:center">There are no items to list...</td>
             </tr>
           </tbody>
         </table>
@@ -86,95 +29,39 @@
     </div>
   
     <div class="row">
-      <div class="col s12 m12 l6 hide">
-        <div class="carousel carousel-slider center">
-          <div class="carousel-fixed-item center">
-            <a class="btn waves-effect white grey-text darken-text-2">Select</a>
-          </div>
-          <div class="carousel-item teal white-text" href="#one!">
-            <h2>Mysterious</h2>
-            <p class="white-text">secretive<br>puzzling<br>strange</p>
-          </div>
-          <div class="carousel-item teal white-text" href="#two!">
-            <h2>Delicate</h2>
-            <p class="white-text">dainty<br>tender<br>elegant</p>
+      <div class="game-card col s12 m12 l6">
+        <div id="dealerView" class="carousel carousel-slider center">
+          <div class="carousel-item teal white-text" href="#">
+            <h4 class="white-text">Please Wait</h4>
+            <h5 class="white-text">No Cards Loaded</h5>
           </div>
         </div>
       </div>
-      <div class="col s12 m12 l6 hide">
-        <div class="carousel carousel-slider center">
-          <div class="carousel-item red darken-2 white-text" href="#one!">
-            <h2>BUG IN YOUR SALAD</h2>
-            <p class="white-text">What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#two!">
-            <h2>PUBLIC SPEAKING</h2>
-            <p class="white-text">"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy." -Jerry Seinfeld</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#three!">
-            <h2>CALLING CUSTOMER SERVICE</h2>
-            <p class="white-text">All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#four!">
-            <h2>BIG FOOT</h2>
-            <p class="white-text">Legendary North<br>American monster,<br>aka, Sasquatch.</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#five!">
-            <h2>THE APOCALYPSE</h2>
-            <p class="white-text">If the world ends and no<br>one is left to hear it...<br>does it matter?</p>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m12 l6">
-        <div class="card-panel teal">
-          <h5 class="white-text center-align">Player1: Mysterious</h5>
-          <h6 class="white-text center-align">secretive<br>puzzling<br>strange</h6>
-        </div>
-      </div>
-      <div class="col s12 m12 l6">
-        <div class="carousel carousel-slider center">
-          <div class="carousel-fixed-item center">
-            <a class="btn waves-effect pulse white grey-text darken-text-2">0:47</a>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#one!">
-            <h2>BUG IN YOUR SALAD</h2>
-            <p class="white-text">What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#two!">
-            <h2>PUBLIC SPEAKING</h2>
-            <p class="white-text">"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy." -Jerry Seinfeld</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#three!">
-            <h2>CALLING CUSTOMER SERVICE</h2>
-            <p class="white-text">All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#four!">
-            <h2>BIG FOOT</h2>
-            <p class="white-text">Legendary North<br>American monster,<br>aka, Sasquatch.</p>
-          </div>
-          <div class="carousel-item red darken-2 white-text" href="#five!">
-            <h2>THE APOCALYPSE</h2>
-            <p class="white-text">If the world ends and no<br>one is left to hear it...<br>does it matter?</p>
+      <div class="game-card col s12 m12 l6">
+        <div id="playerView" class="carousel carousel-slider center">
+          <div class="carousel-item red darken-2 white-text" href="#">
+            <h4 class="white-text">Please Wait</h4>
+            <h5 class="white-text">No Cards Loaded</h5>
           </div>
         </div>
       </div>
     </div>
+
     
     
     <div class="row">
       <div class="col s12 m4">
         <!-- Modal Trigger -->
-        <a class="modal-trigger" href="#modal1"><h5 class="black-text center-align">Status</h5></a>
+        <a class="modal-trigger" href="#modal1"><h5 id="gameStatsButton" class="black-text center-align">Stats Pending</h5></a>
       </div>
       <div class="col s12 m4">
-        <h5 class="black-text center-align">Dealer Deck: 95%</h5>
+        <h5 id="dealerDeck" class="black-text center-align">Dealer Deck Pending</h5>
       </div>
       <div class="col s12 m4">
-        <h5 class="black-text center-align">Player Deck: 82%</h5>
+        <h5 id="playerDeck" class="black-text center-align">Player Deck Pending</h5>
       </div>
     </div>
     
   </div>
-
   
 {% endblock %}
