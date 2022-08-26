@@ -1,0 +1,19 @@
+import asyncio
+import websockets
+from time import sleep
+# Pass in game status to get JSON string
+async def message(self):
+    async with websockets.connect('ws://localhost:8080/ws/status/test/') as websocket:
+        # Does this only launch on room creation?
+        # Set id to json as host, close if another host exists.
+        # Client will disconnect if no broadcast received
+        # end process after all players leave the game
+
+        while $PLAYERS > X:
+            message = self.gameStatus
+            await websocket.send(message)
+            print("> {}".format(message))
+            sleep(1)
+        
+        
+asyncio.get_event_loop().run_until_complete(message())

@@ -1,3 +1,11 @@
+//const socket = new WebSocket('wss://devin.dice:1234@192.168.185.2:7744/ws/status/')
+const socket = new WebSocket('ws://localhost:8080/ws/status/')
+socket.onmessage = function(e) {
+  let data = json.parse(e.data);
+  console.log(data);
+}
+
+
 let player = "Devin"
 
 let update = {score: [
