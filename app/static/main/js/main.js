@@ -1,49 +1,3 @@
-//const socket = new WebSocket('wss://devin.dice:1234@192.168.185.2:7744/ws/status/')
-const socket = new WebSocket('ws://localhost:8080/ws/status/')
-socket.onmessage = function(e) {
-  let data = json.parse(e.data);
-  console.log(data);
-}
-
-
-let player = "Devin"
-
-let update = {score: [
-  {name: 'Kyle', score: "1", status: "Pending"},
-  {name: 'Sandy', score: "0", status: "Pending"},
-  {name: 'Jamie', score: "1", status: "Submitted"},
-  {name: 'Alishia', score: "0", status: "Pending"},
-  {name: 'Devin', score: "0", status: "Pending"},
-  {name: 'April', score: "3", status: "Judge"},
-  {name: 'Lorie', score: "0", status: "Pending"},
-  {name: 'Jordan', score: "1", status: "Pending"},
-  {name: 'Ken', score: "0", status: "Offline"},
-  ],
-  playerCards: [
-  {id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
-  {id: '334', cardTitle: "PUBLIC SPEAKING", cardDescription: "\"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy.\" -Jerry Seinfeld"},
-  {id: '234', cardTitle: "CALLING CUSTOMER SERVICE", cardDescription: "All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day"},
-  {id: '39', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
-  {id: '754', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
-  ],
-  roundCards: [
-  {id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
-  {id: '334', cardTitle: "PUBLIC SPEAKING", cardDescription: "\"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy.\" -Jerry Seinfeld"},
-  {id: '234', cardTitle: "CALLING CUSTOMER SERVICE", cardDescription: "All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day"},
-  {id: '39', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
-  {id: '754', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
-  ],
-  winner: [
-  {name: 'Kyle', id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
-  ],
-  dealerCards: [
-  {id: '324', cardTitle: "Mysterious!", cardDescription: "secretive<br>puzzling<br>strange"},
-  ],
-  state: "pick",
-  dealerDeck: 99,
-  playerDeck: 95
-};
-
 let pendingCards = [{id: '32', cardTitle: "No Card(s)", cardDescription: "Waiting for other players."}];
 
 function updateStatus(id, value) {
@@ -55,7 +9,7 @@ function updateStatus(id, value) {
 function scoreModel() {
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems, options);
+    var instances = M.Modal.init(elems, {});
   });
   // Or with jQuery
   $(document).ready(function(){
@@ -127,6 +81,7 @@ function gameTimer(seconds) {
     console.log(timeleft);
     document.getElementById('submit').innerText = `Select (${timeleft})`;
     timeleft -= 1;
+    console.log(player)
   }, 1000);
 }
 
@@ -174,6 +129,7 @@ function carouselRefresh() {
 
 
 let judge = update.score.find(x => x.status === 'Judge').name
+let player = undefined;
 
 playerCount(update.score);
 scoreModel()
@@ -182,7 +138,7 @@ if (update.state == "pick") {
   if (player == judge){
     loadCards('playerView', "red darken-2", false, false, pendingCards);
     loadCards('dealerView', "teal", true, judge, update.dealerCards);
-    gameTimer(2)
+    gameTimer(30)
   } else {
     loadCards('playerView', "red darken-2", false, false, update.playerCards);
     loadCards('dealerView', "teal", false, judge, pendingCards);
@@ -194,13 +150,13 @@ if (update.state == "pick") {
   } else {
     loadCards('playerView', "red darken-2", true, false, update.playerCards);
     loadCards('dealerView', "teal", false, judge, update.dealerCards);
-    gameTimer(2)
+    gameTimer(30)
   }
 } else if (update.state == "judge") {
     if (player == judge){
     loadCards('playerView', "red darken-2", true, false, update.roundCards);
     loadCards('dealerView', "teal", false, judge, update.dealerCards);
-    gameTimer(2)
+    gameTimer(30)
   } else {
     loadCards('playerView', "red darken-2", false, false, update.roundCards);
     loadCards('dealerView', "teal", false, judge, update.dealerCards);
@@ -210,10 +166,22 @@ if (update.state == "pick") {
   loadCards('dealerView', "teal", false, judge, update.dealerCards);
   updateStatus("message", `<h4>Winner: ${update.winner[0].name}!</h4>`)
 }
-updateStatus("dealerDeck", `Dealer Deck: ${update.dealerDeck}%`)
-updateStatus("playerDeck", `Player Deck: ${update.playerDeck}%`)
+//updateStatus("dealerDeck", `Dealer Deck: ${update.dealerDeck}%`)
+//updateStatus("playerDeck", `Player Deck: ${update.playerDeck}%`)
 carouselRefresh()
 
 
+console.log(player)
+
+if (player === undefined) {
+    console.log(`Main- No Username: ${player}`)
+        document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.getElementById('login');
+          var instance = M.Modal.init(elems, {dismissible: false});
+              instance.open();
+        });
+} else {
+    console.log(`Main- Found Username: ${player}`)
+}
 
 

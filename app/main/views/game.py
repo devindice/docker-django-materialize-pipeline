@@ -8,8 +8,8 @@ def home(request):
 def index(request):
     return render(request, 'index.html')
     
-def room(request, room_name):
-    return render(request, 'room.html', {
+def game(request, room_name):
+    return render(request, 'game.html', {
         'room_name': room_name
     })
 

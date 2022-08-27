@@ -17,13 +17,29 @@ class WSconsumer(AsyncWebsocketConsumer):
                 'timer': 0,
                 'roundCards': None,
                 'winner': None,
-                'players': None,
+                'players': {},
                 'judge': None,
             }
             count = 0
-            while True:
+            timeout = 0
+            while timeout < 300:
                 gameRooms[self.room_group_name]['timer'] += 1
-                print("Room: %s; Timer: %s" % (self.room_group_name, gameRooms.get(self.room_group_name).get('timer')))
+                print(gameRooms.get(self.room_group_name))
+                if gameRooms.get(self.room_group_name).get('players'):
+                    players = 0
+                    for player in gameRooms.get(self.room_group_name).get('players').keys():
+                        if gameRooms.get(self.room_group_name).get('players').get(player).get('state') == 'active':
+                            players += 1
+                            timeout = 0
+                    if players == 0:
+                        timeout += 1
+                        
+                    print("Timeout: %s" % timeout)
+                        
+                else:
+                    print('no players')
+                    timeout += 1
+                    print("Timeout: %s" % timeout)
                 await asyncio.sleep(1)
                 # Broadcast to the group
                 await self.channel_layer.group_send(
@@ -33,6 +49,7 @@ class WSconsumer(AsyncWebsocketConsumer):
                         'message': gameRooms.get(self.room_group_name)
                     }
                 )
+            print("Game Ended")
     
         
     async def connect(self):
@@ -69,18 +86,30 @@ class WSconsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+        gameRooms[self.room_group_name]['players'][self.player]['state'] = 'offline'
     
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type': 'json',
-                'message': message
-            }
-        )
+        if message.get('player'):
+            print("Getting Player Info")
+            self.player = message.get('player').get('name')
+            gameRooms[self.room_group_name]['players'][self.player] = message.get('player')
+            print(gameRooms.get(self.room_group_name).get('players'))
+            print(self.player)
+
+            # Reply to the user connecting
+            await self.send(text_data=json.dumps({
+                'message': {'message': "Player Connected: %s" % self.player}
+            }))
+
+        #await self.channel_layer.group_send(
+        #    self.room_group_name,
+        #    {
+        #        'type': 'json',
+        #        'message': message
+        #    }
+        #)
         
     async def json(self, event):
         message = event['message']

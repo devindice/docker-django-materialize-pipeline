@@ -5,8 +5,19 @@
 {% block page_content %}
   <div class="container">
 
+
+
     <!-- Modal Structure -->
-    <div id="modal1" class="modal bottom-sheet">
+    <div id="login" class="modal">
+      <div class="modal-content">
+        <h4>Enter Username</h4>
+        <input id="username-input" type="text" size="100"><br>
+        <input id="username-submit" class="modal-close" type="button" value="Join">
+      </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="players" class="modal bottom-sheet">
       <div class="modal-content">
         <table id="gameStats" class="centered responsive-table">
           <thead>
@@ -25,6 +36,16 @@
         </table>
       </div>
       <div class="modal-footer">
+      </div>
+    </div>
+    
+    <div id="history" class="modal bottom-sheet">
+      <div class="modal-content">
+        <div id='chat'>
+          <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+          <input id="chat-message-input" type="text" size="100"><br>
+          <input id="chat-message-submit" type="button" value="Send">
+        </div>
       </div>
     </div>
   
@@ -48,25 +69,22 @@
       </div>
     </div>
 
-    <div id='chat'>
-      <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-      <input id="chat-message-input" type="text" size="100"><br>
-      <input id="chat-message-submit" type="button" value="Send">
-    </div>
-
     <div class="row">
       <div class="col s12 m4">
         <!-- Modal Trigger -->
-        <a class="modal-trigger" href="#modal1"><h5 id="gameStatsButton" class="black-text center-align">Stats Pending</h5></a>
+        <a class="modal-trigger" href="#players"><h5 id="gameStatsButton" class="black-text center-align">Stats Pending</h5></a>
       </div>
       <div class="col s12 m4">
-        <h5 id="dealerDeck" class="black-text center-align">Dealer Deck Pending</h5>
+        <h5 id="deckStats" class="black-text center-align">Deck Stats</h5>
       </div>
       <div class="col s12 m4">
-        <h5 id="playerDeck" class="black-text center-align">Player Deck Pending</h5>
+        <!-- Modal Trigger -->
+        <a class="modal-trigger" href="#history"><h5 class="black-text center-align">History</h5></a>
       </div>
     </div>
     
   </div>
-  
+  {{ room_name|json_script:"room-name" }}
+
+  <script  language="JavaScript" type="text/javascript"  src="/static/main/js/game.js"></script>
 {% endblock %}
