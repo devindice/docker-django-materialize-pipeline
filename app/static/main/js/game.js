@@ -30,128 +30,17 @@ setTimeout(function checkCookie() {
   } else {
     player = prompt("Please enter your name:", "");
     if (player != "" && player != null) {
-      setCookie("player", player, 365);
+      setCookie("player", player, 1);
     }
   }
-  
-  chatSocket.send(JSON.stringify({
-    'message': {'player': {'name': player, 'cards':[]}}
-  }));
-  console.log(`Found Username: ${player}`);
-  return player;
+  if (player != "" && player != null) {
+    console.log(`Sending Username to server: ${player}`);
+    chatSocket.send(JSON.stringify({
+      'message': {'playerConnection': {'name': player}}
+    }));
+    return player;
+  }
 }, 500);
-
-function loadTable(tableId, fields, data) {
-  //$('#' + tableId).empty(); //not really necessary
-  var rows = '';
-  $.each(data, function(index, item) {
-    var row = '<tr>';
-    $.each(fields, function(index, field) {
-        row += '<td>' + item[field+''] + '</td>';
-    });
-    rows += row + '</tr>';
-  });
-  $('#' + tableId + ' tbody').html(rows);
-}
-
-
-
-
-
-
-//if (player === undefined) {
-//    console.log(`Main- No Username: ${player}`)
-//        document.addEventListener('DOMContentLoaded', function() {
-//          var elems = document.getElementById('login');
-//          var instance = M.Modal.init(elems, {dismissible: false});
-//              instance.open();
-//        });
-//} else {
-//    console.log(`Main- Found Username: ${player}`)
-//}
-
-
-const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
-let update
-//let update = {score: [
-//  {name: 'Kyle', score: "1", status: "Pending"},
-//  {name: 'Sandy', score: "0", status: "Pending"},
-//  {name: 'Jamie', score: "1", status: "Submitted"},
-//  {name: 'Alishia', score: "0", status: "Pending"},
-//  {name: 'Devin', score: "0", status: "Pending"},
-//  {name: 'April', score: "3", status: "Judge"},
-//  {name: 'Lorie', score: "0", status: "Pending"},
-//  {name: 'Jordan', score: "1", status: "Pending"},
-//  {name: 'Ken', score: "0", status: "Offline"},
-//  ],
-//  playerCards: [
-//  {id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
-//  {id: '334', cardTitle: "PUBLIC SPEAKING", cardDescription: "\"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy.\" -Jerry Seinfeld"},
-//  {id: '234', cardTitle: "CALLING CUSTOMER SERVICE", cardDescription: "All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day"},
-//  {id: '39', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
-//  {id: '754', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
-//  ],
-//  roundCards: [
-//  {id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
-//  {id: '334', cardTitle: "PUBLIC SPEAKING", cardDescription: "\"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy.\" -Jerry Seinfeld"},
-//  {id: '234', cardTitle: "CALLING CUSTOMER SERVICE", cardDescription: "All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day"},
-//  {id: '39', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
-//  {id: '754', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
-//  ],
-//  winner: [
-//  {name: 'Kyle', id: '32', cardTitle: "BUG IN SALAD!", cardDescription: "What's worse:<br>Finding a bug<br>in your salad,<br>or finding half a bug<br>in your salad?"},
-//  ],
-//  dealerCards: [
-//  {id: '324', cardTitle: "Mysterious!", cardDescription: "secretive<br>puzzling<br>strange"},
-//  ],
-//  state: "play",
-//  dealerDeck: 99,
-//  playerDeck: 95
-//};
-
-//if (player === undefined) {
-//    console.log(`Found Username: ${player}`)
-//    var elems = document.getElementById('login')
-//    var instance = M.Modal.init(elems, {dismissible: false});
-//    instance.open();
-//} else {
-//    console.log(`Found Username: ${player}`)
-//}
-
-const chatSocket = new WebSocket(
-    'wss://devin.dice:1234@'
-    + window.location.host
-    + '/ws/status/'
-    + roomName
-    + '/'
-);
-
-function loadCards(playerCardsID, color, submit, judge, data) {
-  if (submit) {
-    var cards = '<div class="carousel-fixed-item center">';
-    cards += '<a id=submit class="btn waves-effect pulse white grey-text darken-text-2">Submit</a>';
-    cards += '</div>';
-  } else {
-    var cards = ""
-  }
-  $.each(data, function(index, item) {
-    console.log(`Processing ${index}: ${item.cardTitle}`)
-    var card = `<div class="carousel-item ${color} darken-2 white-text" href="#${index}!">`;
-    if (judge) {
-      card += `<h4 class="rotate">${judge}</h4>`;
-      card += `<h4>${item.cardTitle}</h4>`;
-    } else {
-      card += `<h4>${item.cardTitle}</h4>`;
-    }
-    card += `<h5 class="white-text">${item.cardDescription}</h5>`;
-    card += '</div>';
-    console.log(card)
-    cards += card;
-  });
-  $('#' + playerCardsID).html(cards);
-}
-
 
 // Game timer
 function gameTimer(seconds) {
@@ -167,26 +56,93 @@ function gameTimer(seconds) {
   }, 1000);
 }
 
-
-function updateCards(playerCards) {
-  //playerCards = [
-  //  {id: '2', cardTitle: "PUBLIC SPEAKING", cardDescription: "\"...people's number one<br>fear is public speaking.<br>Number two is death...<br>to the average person,<br>your better off in the<br>casket than doing the<br>eulogy.\" -Jerry Seinfeld"},
-  //  {id: '3', cardTitle: "CALLING CUSTOMER SERVICE", cardDescription: "All of our representatives<br>are currently helping<br>other customers.<br>Your wait time<br>is aproximately<br>187 minutes.<br>Have a nice day"},
-  //  {id: '4', cardTitle: "BIG FOOT", cardDescription: "Legendary North<br>American monster,<br>aka, Sasquatch."},
-  //  {id: '5', cardTitle: "THE APOCALYPSE", cardDescription: "If the world ends and no<br>one is left to hear it...<br>does it matter?"},
-  //  ];
-  loadCards('playerView', 'red', false, false, playerCards);
-  var instance = M.Carousel.init({
-    fullWidth: true,
-    indicators: true
+function loadTable(tableId, fields, data) {
+  //$('#' + tableId).empty(); //not really necessary
+  var rows = '';
+  $.each(data, function(index, item) {
+    var row = '<tr>';
+    $.each(fields, function(index, field) {
+        row += '<td>' + item[field+''] + '</td>';
+    });
+    rows += row + '</tr>';
   });
-  // Or with jQuery
-  $('.carousel.carousel-slider').carousel({
-    fullWidth: true,
-    indicators: true
-  });
+  $('#' + tableId + ' tbody').html(rows);
 }
 
+//pendingCards: [Is this needed? Just obscure
+// tableData = dealerCards: [{'id': 1, 'Title': "", 'Description': ""}, {}, {},], playerCards: {}, roundCards: {}, winner}
+//This is a whole package but the messages are handled separately
+
+function setTable(cards) {
+  if (tableData.state == "pick") {
+    if (player == judge){
+      loadCards('playerView', "red darken-2", false, false, tableData.pendingCards);
+      loadCards('dealerView', "teal", true, judge, tableData.dealerCards);
+      gameTimer(30)
+    } else {
+      loadCards('playerView', "red darken-2", false, false, tableData.playerCards);
+      loadCards('dealerView', "teal", false, judge, tableData.pendingCards);
+    }
+  } else if (tableData.state == "play") {
+      if (player == judge){
+      loadCards('playerView', "red darken-2", false, false, tableData.pendingCards);
+      loadCards('dealerView', "teal", false, judge, tableData.dealerCards);
+    } else {
+      loadCards('playerView', "red darken-2", true, false, tableData.playerCards);
+      loadCards('dealerView', "teal", false, judge, tableData.dealerCards);
+      gameTimer(30)
+    }
+  } else if (tableData.state == "judge") {
+      if (player == judge){
+      loadCards('playerView', "red darken-2", true, false, tableData.roundCards);
+      loadCards('dealerView', "teal", false, judge, tableData.dealerCards);
+      gameTimer(30)
+    } else {
+      loadCards('playerView', "red darken-2", false, false, tableData.roundCards);
+      loadCards('dealerView', "teal", false, judge, tableData.dealerCards);
+    }
+  } else if (tableData.state == "final") {
+    loadCards('playerView', "red darken-2", false, false, tableData.winner);
+    loadCards('dealerView', "teal", false, judge, tableData.dealerCards);
+    updateStatus("message", `<h4>Winner: ${tableData.winner[0].name}!</h4>`)
+  }
+  //updateStatus("dealerDeck", `Dealer Deck: ${dealerDeck}%`)
+  //updateStatus("playerDeck", `Player Deck: ${playerDeck}%`)
+}
+
+
+const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+const chatSocket = new WebSocket(
+    'wss://devin.dice:1234@'
+    + window.location.host
+    + '/ws/status/'
+    + roomName
+    + '/'
+);
+
+function loadCards(playerCardsID, data) {
+  console.log("Processing Cards")
+  let color = "teal";
+  if (playerCardsID == 'playerView') {
+    color = "red darken-2";
+  }
+  var cards = '<div id="staticContainer" class="carousel-fixed-item center">';
+  cards += '</div>';
+  data.forEach(function (item, index) {
+    console.log(item.id)
+    var card = `<div class="carousel-item ${color} white-text" href="#${index}!">`;
+    card += `<h4 id="judge" class="rotate"></h4>`;
+    card += `<h4>${item.cardTitle}</h4>`;
+    card += `<h5 class="white-text">${item.cardDescription}</h5>`;
+    card += '</div>';
+    console.log(card);
+    cards += card;
+  })
+  console.log('Done')
+  $('#' + playerCardsID).html(cards);
+
+  
 // Display number of active players
 function playerCount(players) {
   count = 0
@@ -224,9 +180,9 @@ function scoreModal() {
 let players;
 let judge;
 chatSocket.onmessage = function(e) {
-    console.log(e.data)
     const data = JSON.parse(e.data);
     if (data.message.message) {
+        console.log(`Message: ${data.message.message}`);
         document.querySelector('#chat-log').value += (data.message.message + '\n');
     };
     if (data.message.mode) {
@@ -257,9 +213,11 @@ chatSocket.onmessage = function(e) {
         judge = data.message.players
     };
     if (data.message.cards) {
+        console.log(`Cards`);
         console.log(`Cards: ${data.message.cards}`);
-        cards = data.message.cards
-        updateCards(cards)
+        let cards = JSON.parse(data.message.cards);
+        //loadCards('playerView', cards)
+        loadCards('playerView', cards)
         carouselRefresh()
     };
 };
@@ -304,21 +262,3 @@ document.querySelector('#username-submit').onclick = function(e) {
     messageInputDom.value = '';
 };
 
-
-//let player = undefined;
-
-//player = checkCookie();
-
-
-//console.log(player)
-//
-//if (player === undefined) {
-//    console.log(`Main- No Username: ${player}`)
-//        document.addEventListener('DOMContentLoaded', function() {
-//          var elems = document.getElementById('login');
-//          var instance = M.Modal.init(elems, {dismissible: false});
-//              instance.open();
-//        });
-//} else {
-//    console.log(`Main- Found Username: ${player}`)
-//}
