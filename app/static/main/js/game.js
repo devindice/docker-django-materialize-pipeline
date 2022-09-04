@@ -121,13 +121,22 @@ const chatSocket = new WebSocket(
     + '/'
 );
 
+
+function submit(playerCardsID, submitButton) {
+  if (submitButton.value == true) {
+    document.getElementById(submitButton.id).getElementById('cardsButton').innerHTML = "<a id='submit' class='btn waves-effect white grey-text darken-text-2'>button</a>";
+  } else {
+    document.getElementById(submitButton.id).getElementById('cardsButton').innerHTML = "";
+  }
+}
+
 function loadCards(playerCardsID, data) {
   console.log("Processing Cards")
   let color = "teal";
   if (playerCardsID == 'playerView') {
     color = "red darken-2";
   }
-  var cards = '<div id="staticContainer" class="carousel-fixed-item center">';
+  var cards = '<div id="cardsButton" class="carousel-fixed-item center">';
   cards += '</div>';
   data.forEach(function (item, index) {
     console.log(item.id)
@@ -218,6 +227,12 @@ chatSocket.onmessage = function(e) {
         let cards = JSON.parse(data.message.cards);
         //loadCards('playerView', cards)
         loadCards('playerView', cards)
+        carouselRefresh()
+    };
+    if (data.message.submitButton) {
+        let submitButton = JSON.parse(data.message.submitButton);
+        //loadCards('playerView', cards)
+        submit(submitButton)
         carouselRefresh()
     };
 };
